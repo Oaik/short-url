@@ -23,11 +23,6 @@ Used to short the url links
 the website will converted into hashed string that cosists of random digits and letters that will used to map to this website
 
 there is 2 api calls you can make:
-http://localhost:7070/short/*website*
-
-http://localhost:7070/goto/*short-url*
-
-
 
 1) http://localhost:7070/short/*website*
 
