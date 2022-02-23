@@ -1,15 +1,15 @@
 <h3 align="center">Shorter url</h3>
 <div align="center">
   
-  [![GitHub contributors](https://img.shields.io/github/contributors/Oaik/Redurl-shorterdit)](https://github.com/Oaik/url-shorter/contributors)
-  [![GitHub issues](https://img.shields.io/github/issues/Oaik/url-shorter)](https://github.com/Oaik/url-shorter/issues)
-  [![GitHub forks](https://img.shields.io/github/forks/Oaik/url-shorter)](https://github.com/Oaik/url-shorter/network)
-  [![GitHub stars](https://img.shields.io/github/stars/Oaik/url-shorter)](https://github.com/Oaik/url-shorter/stargazers)
-  [![GitHub license](https://img.shields.io/github/license/Oaik/url-shorter)](https://github.com/Oaik/url-shorter/blob/master/LICENSE)
-  <img src="https://img.shields.io/github/languages/count/Oaik/url-shorter" />
-  <img src="https://img.shields.io/github/languages/top/Oaik/url-shorter" />
-  <img src="https://img.shields.io/github/languages/code-size/Oaik/url-shorter" />
-  <img src="https://img.shields.io/github/issues-pr-raw/Oaik/url-shorter" />
+  [![GitHub contributors](https://img.shields.io/github/contributors/Oaik/short-url)](https://github.com/Oaik/short-url/contributors)
+  [![GitHub issues](https://img.shields.io/github/issues/Oaik/short-url)](https://github.com/Oaik/short-url/issues)
+  [![GitHub forks](https://img.shields.io/github/forks/Oaik/short-url)](https://github.com/Oaik/short-url/network)
+  [![GitHub stars](https://img.shields.io/github/stars/Oaik/short-url)](https://github.com/Oaik/short-url/stargazers)
+  [![GitHub license](https://img.shields.io/github/license/Oaik/short-url)](https://github.com/Oaik/short-url/blob/master/LICENSE)
+  <img src="https://img.shields.io/github/languages/count/Oaik/short-url" />
+  <img src="https://img.shields.io/github/languages/top/Oaik/short-url" />
+  <img src="https://img.shields.io/github/languages/code-size/Oaik/short-url" />
+  <img src="https://img.shields.io/github/issues-pr-raw/Oaik/short-url" />
 </div>
 
 ## Table of Contents
