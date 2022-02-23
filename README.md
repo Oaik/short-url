@@ -24,7 +24,9 @@ the website will converted into hashed string that cosists of random digits and 
 
 there is 2 api calls you can make:
 http://localhost:7070/short/*website*
+
 http://localhost:7070/goto/*short-url*
+
 
 
 1) http://localhost:7070/short/*website*
@@ -34,6 +36,7 @@ http://localhost:7070/short/www.google.com
 
 Will short the website "www.google.com" to shorter link
 
+
 2) http://localhost:7070/goto/*short-url*
 
 ex:
@@ -41,7 +44,9 @@ http://localhost:7070/goto/goossjl548
 
 will redirect to the website that have shorturl that equal to "goossjl548" in the database
 
-Example:
+
+
+#### Example:
 
 -running http://localhost:7070/short/www.google.com in postman/crul
 
