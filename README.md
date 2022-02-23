@@ -14,7 +14,7 @@
 
 ## Table of Contents
 - [Features of the Project](#features)
-- [Built with](#built)
+- [Built with](#built-with)
 - [How to Run](#how-to-run)
 
 ## Features
@@ -42,13 +42,18 @@ http://localhost:7070/goto/goossjl548
 will redirect to the website that have shorturl that equal to "goossjl548" in the database
 
 Example:
+
 -running http://localhost:7070/short/www.google.com in postman/crul
+
 you will see output of hash string
+
 ex: shorturl:  goossjl548
+
 -running http://localhost:7070/goto/goossjl548 
+
 will redirect to www.google.com
 
-## built
+## built with
 Langague used: Go Langague
 
 ## how to run
