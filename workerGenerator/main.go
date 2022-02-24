@@ -36,7 +36,6 @@ func (e *WorkerUrlGenerator) Worker() {
 				e.DatabaseConnection.InsertShortUrlAndWebsite(newShortUrl, websiteUrl)
 				break
 			}
-			break
 		}
 	}
 }
