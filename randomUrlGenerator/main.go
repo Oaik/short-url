@@ -7,17 +7,17 @@ import (
 	"time"
 )
 
-const (
-	numOfRandomLetters int = 7
-	numOfRandomDigits  int = 3
-)
-
 type RandomUrlGenerator struct {
+	numOfRandomLetters int
+	numOfRandomDigits  int
 }
 
-func New() *RandomUrlGenerator {
+func Init(numOfRandomLetters, numOfRandomDigits int) *RandomUrlGenerator {
 	rand.Seed(time.Now().Unix())
-	return &RandomUrlGenerator{}
+	e := &RandomUrlGenerator{}
+	e.numOfRandomLetters = numOfRandomLetters
+	e.numOfRandomDigits = numOfRandomDigits
+	return e
 }
 
 func (e *RandomUrlGenerator) GenerateUrl() string {
@@ -26,8 +26,8 @@ func (e *RandomUrlGenerator) GenerateUrl() string {
 }
 
 func (e *RandomUrlGenerator) generateRandomLetters() string {
-	randomLettersSlice := make([]string, numOfRandomLetters)
-	for i := 0; i < numOfRandomLetters; i++ {
+	randomLettersSlice := make([]string, e.numOfRandomLetters)
+	for i := 0; i < e.numOfRandomLetters; i++ {
 		randomChar := 'a' + rune(rand.Intn(26))
 		randomLettersSlice[i] = string(randomChar)
 	}
@@ -35,8 +35,8 @@ func (e *RandomUrlGenerator) generateRandomLetters() string {
 }
 
 func (e *RandomUrlGenerator) generateRandomDigits() string {
-	randomDigitsSlice := make([]string, numOfRandomDigits)
-	for i := 0; i < numOfRandomDigits; i++ {
+	randomDigitsSlice := make([]string, e.numOfRandomDigits)
+	for i := 0; i < e.numOfRandomDigits; i++ {
 		randomDigit := rand.Intn(9)
 		randomDigitsSlice[i] = strconv.Itoa(randomDigit)
 	}

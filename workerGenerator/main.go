@@ -6,12 +6,9 @@ import (
 	"short-url/randomUrlGenerator"
 )
 
-const (
-	NumOfWorkers int = 5
-)
-
 type WorkerUrlGenerator struct {
 	workerChan         chan string
+	numOfWorkers       int
 	DatabaseConnection *postgres.PostgresDB
 	randomUrlGen       *randomUrlGenerator.RandomUrlGenerator
 }
@@ -21,10 +18,11 @@ func New() *WorkerUrlGenerator {
 	return &w
 }
 
-func (e *WorkerUrlGenerator) Init(databaseConnection *postgres.PostgresDB) {
-	e.workerChan = make(chan string, NumOfWorkers)
+func (e *WorkerUrlGenerator) Init(databaseConnection *postgres.PostgresDB, numOfWorkers, numOfRandomLetters, numOfRandomDigits int) {
+	e.numOfWorkers = numOfWorkers
+	e.workerChan = make(chan string, e.numOfWorkers)
 	e.DatabaseConnection = databaseConnection
-	e.randomUrlGen = randomUrlGenerator.New()
+	e.randomUrlGen = randomUrlGenerator.Init(numOfRandomLetters, numOfRandomDigits)
 }
 
 func (e *WorkerUrlGenerator) Worker() {

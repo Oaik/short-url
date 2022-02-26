@@ -1,0 +1,13 @@
+{
+
+    "numOfRandomLetters": 7,
+    "numOfRandomDigits": 3,
+    "NumOfWorkers": 5,
+    "DbConfig": {
+      "host": "localhost",
+      "Port": 5432,
+      "User": "postgres",
+      "Password": "Oo5915010",
+      "Dbname": "postgres"
+    }
+  }
