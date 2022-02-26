@@ -10,7 +10,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "yourpassword"
+	password = "Oo5915010"
 	dbname   = "postgres"
 )
 
@@ -18,14 +18,21 @@ type PostgresDB struct {
 	Db *sql.DB
 }
 
+type DbConfig struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	Dbname   string
+}
+
 func New() *PostgresDB {
 	w := PostgresDB{}
-	w.init()
 	return &w
 }
 
-func (e *PostgresDB) init() {
-	psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+func (e *PostgresDB) Init(config DbConfig) {
+	psqlconn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Port, config.User, config.Password, config.Dbname)
 	var err error
 	e.Db, err = sql.Open("postgres", psqlconn)
 	e.checkIfError(err)
