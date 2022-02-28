@@ -12,12 +12,12 @@ type RandomUrlGenerator struct {
 	numOfRandomDigits  int
 }
 
-func Init(numOfRandomLetters, numOfRandomDigits int) *RandomUrlGenerator {
+func New(numOfRandomLetters, numOfRandomDigits int) *RandomUrlGenerator {
 	rand.Seed(time.Now().Unix())
-	e := &RandomUrlGenerator{}
+	e := RandomUrlGenerator{}
 	e.numOfRandomLetters = numOfRandomLetters
 	e.numOfRandomDigits = numOfRandomDigits
-	return e
+	return &e
 }
 
 func (e *RandomUrlGenerator) GenerateUrl() string {

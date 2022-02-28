@@ -2,36 +2,41 @@ package workerGenerator
 
 import (
 	"fmt"
-	"short-url/postgres"
+	"short-url/insertInstance"
 	"short-url/randomUrlGenerator"
+	"short-url/sqlInstance"
 )
 
 type WorkerUrlGenerator struct {
-	workerChan         chan string
-	numOfWorkers       int
-	DatabaseConnection *postgres.PostgresDB
-	randomUrlGen       *randomUrlGenerator.RandomUrlGenerator
+	workerChan   chan string
+	numOfWorkers int
+	SqlInstance  *sqlInstance.SqlInstance
+	randomUrlGen *randomUrlGenerator.RandomUrlGenerator
 }
 
-func New() *WorkerUrlGenerator {
-	w := WorkerUrlGenerator{}
-	return &w
-}
-
-func (e *WorkerUrlGenerator) Init(databaseConnection *postgres.PostgresDB, numOfWorkers, numOfRandomLetters, numOfRandomDigits int) {
+func New(sqlInstance *sqlInstance.SqlInstance, numOfWorkers, numOfRandomLetters, numOfRandomDigits int) *WorkerUrlGenerator {
+	e := WorkerUrlGenerator{}
 	e.numOfWorkers = numOfWorkers
 	e.workerChan = make(chan string, e.numOfWorkers)
-	e.DatabaseConnection = databaseConnection
-	e.randomUrlGen = randomUrlGenerator.Init(numOfRandomLetters, numOfRandomDigits)
+	e.SqlInstance = sqlInstance
+	e.randomUrlGen = randomUrlGenerator.New(numOfRandomLetters, numOfRandomDigits)
+	for i := 0; i < numOfWorkers; i++ {
+		go e.Worker()
+	}
+	return &e
 }
 
 func (e *WorkerUrlGenerator) Worker() {
 	for websiteUrl := range e.workerChan {
+		sqlInst := insertInstance.New()
+		sqlInst.AddPair("website", websiteUrl)
 		for {
 			newShortUrl := e.randomUrlGen.GenerateUrl()
 			fmt.Println("Trying to linking: ", websiteUrl, " to this shorturl: ", newShortUrl)
-			if e.DatabaseConnection.CheckIfShortUrlNotExists(newShortUrl) {
-				e.DatabaseConnection.InsertShortUrlAndWebsite(newShortUrl, websiteUrl)
+			if e.SqlInstance.CheckIfShortUrlNotExists(newShortUrl) {
+				sqlInst.AddPair("shorturl", newShortUrl)
+				sqlInst.Execute(e.SqlInstance.PostgresDB, "url")
+				// e.SqlInstance.InsertShortUrlAndWebsite(newShortUrl, websiteUrl)
 				break
 			}
 		}

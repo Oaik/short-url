@@ -11,13 +11,10 @@ type Server struct {
 	workerGen *workerGenerator.WorkerUrlGenerator
 }
 
-func New() *Server {
+func New(workerGen *workerGenerator.WorkerUrlGenerator) *Server {
 	w := Server{}
+	w.workerGen = workerGen
 	return &w
-}
-
-func (e *Server) Init(workerGen *workerGenerator.WorkerUrlGenerator) {
-	e.workerGen = workerGen
 }
 
 func (e *Server) StartServer() {
@@ -34,8 +31,10 @@ func (e *Server) shortingFunc(w http.ResponseWriter, req *http.Request) {
 
 func (e *Server) redirectUrl(w http.ResponseWriter, req *http.Request) {
 	shortUrl := strings.TrimPrefix(req.URL.Path, "/goto/")
-	websiteUrl := e.workerGen.DatabaseConnection.SelectWebsiteMatchShortUrl(shortUrl)
+	websiteUrl := e.workerGen.SqlInstance.SelectWebsiteMatchShortUrl(shortUrl)
 	if websiteUrl != "" {
 		http.Redirect(w, req, "http://"+websiteUrl, 303)
+		return
 	}
+	fmt.Fprintf(w, "Not Found")
 }

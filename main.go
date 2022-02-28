@@ -7,6 +7,7 @@ import (
 	"os"
 	"short-url/httpServer"
 	"short-url/postgres"
+	"short-url/sqlInstance"
 	"short-url/workerGenerator"
 
 	_ "github.com/lib/pq"
@@ -45,22 +46,14 @@ func exitOnError(err error) {
 }
 
 func main() {
-
 	config := ReadConfigFile()
-	databaseConnection := postgres.New()
-	databaseConnection.Init(postgres.DbConfig(config.DbConfig))
+	databaseConnection := postgres.New(postgres.DbConfig(config.DbConfig))
 	defer databaseConnection.Db.Close()
+	sqlInstance := sqlInstance.New(databaseConnection)
 
-	workerGen := workerGenerator.New()
-	workerGen.Init(databaseConnection, config.NumOfWorkers, config.NumOfRandomLetters, config.NumOfRandomDigits)
+	workerGen := workerGenerator.New(sqlInstance, config.NumOfWorkers, config.NumOfRandomLetters, config.NumOfRandomDigits)
 	defer workerGen.Close()
 
-	for i := 0; i < config.NumOfWorkers; i++ {
-		go workerGen.Worker()
-	}
-
-	server := httpServer.New()
-	server.Init(workerGen)
+	server := httpServer.New(workerGen)
 	server.StartServer()
-
 }
